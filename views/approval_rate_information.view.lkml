@@ -99,6 +99,17 @@ view: approval_rate_information {
     type: string
     sql: ${TABLE}.FunctionType ;;
   }
+  dimension: function_type_choose {
+    label: "資料來源"
+    type: string
+    case: {
+      when: {
+        label: "SAP"
+        sql: ${TABLE}.FunctionType = 'SAP' ;;
+      }
+      else: "PDM"
+    }
+  }
   dimension: ecnno {
     label: "ECN No"
     type: string
@@ -131,7 +142,7 @@ view: approval_rate_information {
     sql: ${TABLE}.WADAT_IST ;;
   }
   dimension_group: close {
-    label: "Close Date"
+    label: "Close"
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
@@ -154,17 +165,20 @@ view: approval_rate_information {
   }
   measure: approval_rate_with_pcb {
     label: "承認率(含PCB)"
-    type: number
+    value_format: "0.00%"
+    type: max
     sql: ${TABLE}.ApprovalRateWithPCB ;;
   }
   measure: approval_rate {
     label: "承認率"
-    type: number
+    value_format: "0.00%"
+    type: max
     sql: ${TABLE}.ApprovalRate ;;
   }
   measure: datasheet_rate {
     label: "Datasheet %"
-    type: number
+    value_format: "0.00%"
+    type: max
     sql: ${TABLE}.DataSheetRate ;;
   }
   measure: count {
