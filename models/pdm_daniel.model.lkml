@@ -5,7 +5,7 @@ include: "/views/**/*.view.lkml"
 
 access_grant: user_id {
   user_attribute: id
-  allowed_values: ["2", "6", "31"]
+  allowed_values: ["2", "6", "40"]
 }
 
 datagroup: pdm_daniel_default_datagroup {
